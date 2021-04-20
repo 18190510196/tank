@@ -5,6 +5,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.peer.ListPeer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,8 +16,9 @@ import java.util.List;
  **/
 public class TankFrame extends Frame {
     static final int GAME_WIDTH = 800, GAME_HEIGHT = 800, SPEED = 10;
-    Tank tank = new Tank(200, 200, Dir.DOWN, this);
+    Tank tank = new Tank(200, 600, Dir.DOWN, this);
     List<Bullet> bullets = new ArrayList<Bullet>();
+    public List<Tank> tanks=new ArrayList<Tank>();
 
     public TankFrame() {
         setSize(GAME_WIDTH, GAME_HEIGHT);
@@ -54,11 +56,22 @@ public class TankFrame extends Frame {
         Color c=g.getColor();
         g.setColor(Color.WHITE);
         g.drawString("子弹的数量："+bullets.size(),10,60);
+        g.drawString("敌人的数量："+tanks.size(),10,80);
         g.setColor(c);
         tank.paint(g);
         for (int i = 0; i < bullets.size(); i++) {
 
             bullets.get(i).paint(g);
+        }
+        for (int i = 0; i < tanks.size(); i++) {
+            tanks.get(i).paint(g);
+        }
+
+        //子弹和敌人塔克的碰撞检测
+        for (int i=0;i<bullets.size();i++){
+            for (int j=0;j<tanks.size();j++){
+                bullets.get(i).collideWith(tanks.get(j));
+            }
         }
 
     }

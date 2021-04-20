@@ -1,7 +1,6 @@
 package com.weiqiang.tank;
 
 import java.awt.*;
-import java.nio.Buffer;
 
 /**
  * @Description TODO
@@ -9,11 +8,12 @@ import java.nio.Buffer;
  * @Date 2021/4/12 22:56
  **/
 public class Tank {
-    private static int x, y;
+    public int x, y;
     Dir dir = Dir.DOWN;//默认方向
     private static final int SPEED = 10;//移动速度
 
     private boolean moving = false;//为false的时候坦克停止
+    private boolean living = true;//存活状态
     private TankFrame tf = null;
     public static int WIDTH = ResourceMgr.tankD.getWidth();
     public static int HEIGHT = ResourceMgr.tankD.getHeight();
@@ -25,6 +25,22 @@ public class Tank {
         this.x = x;
         this.y = y;
         this.tf = tf;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
     }
 
     public void setDir(Dir dir) {
@@ -48,6 +64,9 @@ public class Tank {
     }
 
     public void paint(Graphics g) {
+        if (!living) {
+            tf.tanks.remove(this);
+        }
         switch (dir) {
             case UP:
                 g.drawImage(ResourceMgr.tankU, x, y, null);
@@ -93,5 +112,9 @@ public class Tank {
         int bX = this.x + Tank.WIDTH / 2 - Bullet.WIDTH / 2;
         int bY = this.y + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;
         tf.bullets.add(new Bullet(bX, bY, this.dir, this.tf));
+    }
+
+    public void die() {
+        living = false;
     }
 }
