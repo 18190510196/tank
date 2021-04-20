@@ -1,6 +1,7 @@
 package com.weiqiang.tank;
 
 import java.awt.*;
+import java.util.Random;
 
 /**
  * @Description TODO
@@ -10,20 +11,23 @@ import java.awt.*;
 public class Tank {
     public int x, y;
     Dir dir = Dir.DOWN;//默认方向
-    private static final int SPEED = 10;//移动速度
+    private static final int SPEED = 1;//移动速度
 
-    private boolean moving = false;//为false的时候坦克停止
+    private boolean moving = true;//为false的时候坦克停止
     private boolean living = true;//存活状态
     private TankFrame tf = null;
     public static int WIDTH = ResourceMgr.tankD.getWidth();
     public static int HEIGHT = ResourceMgr.tankD.getHeight();
+    private Group group = Group.BAD;//坦克分类，默认是敌人坦克
 
+    Random random = new Random();
 
-    public Tank(int x, int y, Dir dir, TankFrame tf) {
+    public Tank(int x, int y, Dir dir, Group group, TankFrame tf) {
         super();
         this.dir = dir;
         this.x = x;
         this.y = y;
+        this.group = group;
         this.tf = tf;
     }
 
@@ -61,6 +65,14 @@ public class Tank {
 
     public void setMoving(boolean moving) {
         this.moving = moving;
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
     }
 
     public void paint(Graphics g) {
@@ -106,12 +118,13 @@ public class Tank {
             default:
                 break;
         }
+        if (random.nextInt() > 8) fire();
     }
 
     public void fire() {
         int bX = this.x + Tank.WIDTH / 2 - Bullet.WIDTH / 2;
         int bY = this.y + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;
-        tf.bullets.add(new Bullet(bX, bY, this.dir, this.tf));
+        tf.bullets.add(new Bullet(bX, bY, this.dir, this.group, this.tf));
     }
 
     public void die() {

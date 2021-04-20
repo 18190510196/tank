@@ -9,17 +9,19 @@ import java.awt.*;
  **/
 public class Bullet {
     private int x, y;
-    private final int SPEED = 2;
+    private final int SPEED = 3;
     private Dir dir;
     public static int WIDTH = ResourceMgr.bulletD.getWidth();
     public static int HEIGHT = ResourceMgr.bulletD.getHeight();
     TankFrame tf = null;
     private boolean living = true;//子弹状态
+    private Group group = Group.BAD;
 
-    public Bullet(int x, int y, Dir dir, TankFrame tf) {
+    public Bullet(int x, int y, Dir dir, Group group, TankFrame tf) {
         this.x = x;
         this.y = y;
         this.dir = dir;
+        this.group = group;
         this.tf = tf;
     }
 
@@ -68,6 +70,7 @@ public class Bullet {
 
     //碰撞检测
     public void collideWith(Tank tank) {
+        if (this.group == tank.getGroup()) return;
         Rectangle brec = new Rectangle(x, y, WIDTH, HEIGHT);
         Rectangle trec = new Rectangle(tank.getX(), tank.getY(), Tank.WIDTH, Tank.HEIGHT);
         if (brec.intersects(trec)) {
