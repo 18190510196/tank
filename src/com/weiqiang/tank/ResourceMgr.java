@@ -13,7 +13,7 @@ public class ResourceMgr {
     public static BufferedImage bulletL, bulletD, bulletU, bulletR;
 
     static {
-        try { 
+        try {
             //坦克图片加载
             tankD = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/tankD.gif"));
             tankL = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/tankL.gif"));

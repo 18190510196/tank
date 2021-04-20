@@ -1,6 +1,7 @@
 package com.weiqiang.tank;
 
 import java.awt.*;
+import java.nio.Buffer;
 
 /**
  * @Description TODO
@@ -14,6 +15,9 @@ public class Tank {
 
     private boolean moving = false;//为false的时候坦克停止
     private TankFrame tf = null;
+    public static int WIDTH = ResourceMgr.tankD.getWidth();
+    public static int HEIGHT = ResourceMgr.tankD.getHeight();
+
 
     public Tank(int x, int y, Dir dir, TankFrame tf) {
         super();
@@ -86,6 +90,8 @@ public class Tank {
     }
 
     public void fire() {
-        tf.bullets.add(new Bullet(this.x, this.y, this.dir, this.tf));
+        int bX = this.x + Tank.WIDTH / 2 - Bullet.WIDTH / 2;
+        int bY = this.y + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;
+        tf.bullets.add(new Bullet(bX, bY, this.dir, this.tf));
     }
 }

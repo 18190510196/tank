@@ -11,7 +11,8 @@ public class Bullet {
     private int x, y;
     private final int SPEED = 2;
     private Dir dir;
-    private final int WIDTH = 20, HEIGHT = 20;
+    public static int WIDTH = ResourceMgr.bulletD.getWidth();
+    public static int HEIGHT = ResourceMgr.bulletD.getHeight();
     TankFrame tf = null;
     private boolean live = true;//子弹状态
 
