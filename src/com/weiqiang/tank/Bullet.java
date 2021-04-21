@@ -76,7 +76,10 @@ public class Bullet {
         if (brec.intersects(trec)) {
             tank.die();
             this.die();
-            tf.explodes.add(new Explode(x, y, tf));
+            //控制爆炸在坦克中心位置
+            int eX = tank.getX() + Tank.WIDTH / 2 - Explode.WIDTH / 2;
+            int eY = tank.getY() + Tank.HEIGHT / 2 - Explode.HEIGHT / 2;
+            tf.explodes.add(new Explode(eX, eY, tf));
         }
     }
 

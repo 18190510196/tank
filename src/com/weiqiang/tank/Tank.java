@@ -119,7 +119,14 @@ public class Tank {
             default:
                 break;
         }
-        if (random.nextInt(10) > 8) fire();
+        if (random.nextInt(100) > 95) this.fire();
+        //敌人坦克随机移动
+        if (this.group == Group.BAD && random.nextInt(100) > 95)
+            randomMove();
+    }
+
+    private void randomMove() {
+        dir = Dir.values()[random.nextInt(4)];
     }
 
     public void fire() {
