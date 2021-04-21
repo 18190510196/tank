@@ -14,10 +14,12 @@ import java.util.List;
  * @Date 2021/4/12 22:36
  **/
 public class TankFrame extends Frame {
-    static final int GAME_WIDTH = 800, GAME_HEIGHT = 800, SPEED = 10;
+    static final int GAME_WIDTH = 1080, GAME_HEIGHT = 960, SPEED = 10;
     Tank tank = new Tank(200, 600, Dir.DOWN, Group.GOOD, this);
     List<Bullet> bullets = new ArrayList<Bullet>();
     public List<Tank> tanks = new ArrayList<Tank>();
+
+    Explode e = new Explode(100, 100, this);
 
     public TankFrame() {
         setSize(GAME_WIDTH, GAME_HEIGHT);
@@ -72,7 +74,7 @@ public class TankFrame extends Frame {
                 bullets.get(i).collideWith(tanks.get(j));
             }
         }
-
+        e.paint(g);
     }
 
     class MyKeyListener extends KeyAdapter {
