@@ -9,7 +9,7 @@ import java.awt.*;
  **/
 public class Bullet {
     private int x, y;
-    private final int SPEED = 3;
+    private final int SPEED = 2;
     private Dir dir;
     public static int WIDTH = ResourceMgr.bulletD.getWidth();
     public static int HEIGHT = ResourceMgr.bulletD.getHeight();
@@ -76,6 +76,7 @@ public class Bullet {
         if (brec.intersects(trec)) {
             tank.die();
             this.die();
+            tf.explodes.add(new Explode(x, y, tf));
         }
     }
 

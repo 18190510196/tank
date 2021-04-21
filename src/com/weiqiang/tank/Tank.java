@@ -11,7 +11,7 @@ import java.util.Random;
 public class Tank {
     public int x, y;
     Dir dir = Dir.DOWN;//默认方向
-    private static final int SPEED = 1;//移动速度
+    private static final int SPEED = 3;//移动速度
 
     private boolean moving = true;//为false的时候坦克停止
     private boolean living = true;//存活状态
@@ -29,6 +29,7 @@ public class Tank {
         this.y = y;
         this.group = group;
         this.tf = tf;
+
     }
 
     public int getX() {
@@ -118,7 +119,7 @@ public class Tank {
             default:
                 break;
         }
-        if (random.nextInt() > 8) fire();
+        if (random.nextInt(10) > 8) fire();
     }
 
     public void fire() {

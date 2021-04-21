@@ -2,6 +2,8 @@ package com.weiqiang.tank;
 
 import java.awt.*;
 
+import static sun.misc.PostVMInitHook.run;
+
 /**
  * @Description 爆炸对象
  * @Author weiqiang
@@ -19,11 +21,13 @@ public class Explode {
         this.x = x;
         this.y = y;
         this.tf = tf;
+        new Thread(()-> new Audio("audio/explode.wav").play()).run();
+
     }
 
     public void paint(Graphics g) {
         g.drawImage(ResourceMgr.explodes[step++], x, y, null);
         if (step >= ResourceMgr.explodes.length)
-            step = 0;
+           tf.explodes.remove(this);
     }
 }

@@ -18,8 +18,7 @@ public class TankFrame extends Frame {
     Tank tank = new Tank(200, 600, Dir.DOWN, Group.GOOD, this);
     List<Bullet> bullets = new ArrayList<Bullet>();
     public List<Tank> tanks = new ArrayList<Tank>();
-
-    Explode e = new Explode(100, 100, this);
+    List<Explode> explodes = new ArrayList<>();
 
     public TankFrame() {
         setSize(GAME_WIDTH, GAME_HEIGHT);
@@ -58,6 +57,7 @@ public class TankFrame extends Frame {
         g.setColor(Color.WHITE);
         g.drawString("子弹的数量：" + bullets.size(), 10, 60);
         g.drawString("敌人的数量：" + tanks.size(), 10, 80);
+        g.drawString("爆炸的数量：" + tanks.size(), 10, 100);
         g.setColor(c);
         tank.paint(g);
         for (int i = 0; i < bullets.size(); i++) {
@@ -68,13 +68,16 @@ public class TankFrame extends Frame {
             tanks.get(i).paint(g);
         }
 
+        for (int i = 0; i < explodes.size(); i++) {
+            explodes.get(i).paint(g);
+        }
+
         //子弹和敌人塔克的碰撞检测
         for (int i = 0; i < bullets.size(); i++) {
             for (int j = 0; j < tanks.size(); j++) {
                 bullets.get(i).collideWith(tanks.get(j));
             }
         }
-        e.paint(g);
     }
 
     class MyKeyListener extends KeyAdapter {
@@ -123,6 +126,7 @@ public class TankFrame extends Frame {
                     break;
                 case KeyEvent.VK_CONTROL:
                     tank.fire();
+                    System.out.println("fire=============");
                     break;
                 default:
                     break;
