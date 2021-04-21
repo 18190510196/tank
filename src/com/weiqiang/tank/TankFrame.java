@@ -14,7 +14,7 @@ import java.util.List;
  * @Date 2021/4/12 22:36
  **/
 public class TankFrame extends Frame {
-    static final int GAME_WIDTH = 1080, GAME_HEIGHT = 960, SPEED = 10;
+    static final int GAME_WIDTH = 800, GAME_HEIGHT = 600, SPEED = 10;
     Tank tank = new Tank(200, 600, Dir.DOWN, Group.GOOD, this);
     List<Bullet> bullets = new ArrayList<Bullet>();
     public List<Tank> tanks = new ArrayList<Tank>();
@@ -126,7 +126,6 @@ public class TankFrame extends Frame {
                     break;
                 case KeyEvent.VK_CONTROL:
                     tank.fire();
-                    System.out.println("fire=============");
                     break;
                 default:
                     break;

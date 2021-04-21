@@ -11,6 +11,7 @@ public class Bullet {
     private int x, y;
     private final int SPEED = 2;
     private Dir dir;
+    Rectangle rect = new Rectangle();
     public static int WIDTH = ResourceMgr.bulletD.getWidth();
     public static int HEIGHT = ResourceMgr.bulletD.getHeight();
     TankFrame tf = null;
@@ -23,6 +24,10 @@ public class Bullet {
         this.dir = dir;
         this.group = group;
         this.tf = tf;
+        rect.x = x;
+        rect.y = y;
+        rect.width = WIDTH;
+        rect.height = HEIGHT;
     }
 
     public void paint(Graphics g) {
@@ -65,15 +70,16 @@ public class Bullet {
             default:
                 break;
         }
+        rect.x = this.x;
+        rect.y = this.y;
         if (x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT) living = false;
     }
 
     //碰撞检测
     public void collideWith(Tank tank) {
         if (this.group == tank.getGroup()) return;
-        Rectangle brec = new Rectangle(x, y, WIDTH, HEIGHT);
-        Rectangle trec = new Rectangle(tank.getX(), tank.getY(), Tank.WIDTH, Tank.HEIGHT);
-        if (brec.intersects(trec)) {
+
+        if (rect.intersects(tank.rect)) {
             tank.die();
             this.die();
             //控制爆炸在坦克中心位置

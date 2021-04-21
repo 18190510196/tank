@@ -10,14 +10,15 @@ import java.util.Random;
  **/
 public class Tank {
     public int x, y;
+    Rectangle rect = new Rectangle();
     Dir dir = Dir.DOWN;//默认方向
-    private static final int SPEED = 3;//移动速度
+    private static final int SPEED = 6;//移动速度
 
     private boolean moving = true;//为false的时候坦克停止
     private boolean living = true;//存活状态
     private TankFrame tf = null;
-    public static int WIDTH = ResourceMgr.tankD.getWidth();
-    public static int HEIGHT = ResourceMgr.tankD.getHeight();
+    public static int WIDTH = ResourceMgr.goodTankU.getWidth();
+    public static int HEIGHT = ResourceMgr.goodTankU.getHeight();
     private Group group = Group.BAD;//坦克分类，默认是敌人坦克
 
     Random random = new Random();
@@ -29,6 +30,10 @@ public class Tank {
         this.y = y;
         this.group = group;
         this.tf = tf;
+        rect.x = x;
+        rect.y = y;
+        rect.height = HEIGHT;
+        rect.width = WIDTH;
 
     }
 
@@ -82,16 +87,16 @@ public class Tank {
         }
         switch (dir) {
             case UP:
-                g.drawImage(ResourceMgr.tankU, x, y, null);
+                g.drawImage(this.group == Group.BAD ? ResourceMgr.badTankU : ResourceMgr.goodTankU, x, y, null);
                 break;
             case DOWN:
-                g.drawImage(ResourceMgr.tankD, x, y, null);
+                g.drawImage(this.group == Group.BAD ? ResourceMgr.badTankD : ResourceMgr.goodTankD, x, y, null);
                 break;
             case RIGHT:
-                g.drawImage(ResourceMgr.tankR, x, y, null);
+                g.drawImage(this.group == Group.BAD ? ResourceMgr.badTankR : ResourceMgr.goodTankR, x, y, null);
                 break;
             case LEFT:
-                g.drawImage(ResourceMgr.tankL, x, y, null);
+                g.drawImage(this.group == Group.BAD ? ResourceMgr.badTankL : ResourceMgr.goodTankL, x, y, null);
                 break;
             default:
                 break;
@@ -119,10 +124,24 @@ public class Tank {
             default:
                 break;
         }
-        if (random.nextInt(100) > 95) this.fire();
+        if (random.nextInt(100) > 95 && this.group == Group.BAD) {
+            this.fire();
+        }
         //敌人坦克随机移动
-        if (this.group == Group.BAD && random.nextInt(100) > 95)
+        if (this.group == Group.BAD && random.nextInt(100) > 95) {
             randomMove();
+        }
+        boundsCheck();
+        rect.x = this.x;
+        rect.y = this.y;
+    }
+
+    //坦克边界控制
+    private void boundsCheck() {
+        if (this.x < 2) x = 2;
+        if (this.y < 28) y = 28;
+        if (this.x > TankFrame.GAME_WIDTH - Tank.WIDTH - 2) x = TankFrame.GAME_WIDTH - Tank.WIDTH - 2;
+        if (this.y > TankFrame.GAME_HEIGHT - Tank.HEIGHT - 2) y = TankFrame.GAME_HEIGHT - Tank.HEIGHT - 2;
     }
 
     private void randomMove() {
@@ -133,6 +152,7 @@ public class Tank {
         int bX = this.x + Tank.WIDTH / 2 - Bullet.WIDTH / 2;
         int bY = this.y + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;
         tf.bullets.add(new Bullet(bX, bY, this.dir, this.group, this.tf));
+        if (this.group == Group.GOOD) new Thread(() -> new Audio("audio/tank_fire.wav").play()).run();
     }
 
     public void die() {

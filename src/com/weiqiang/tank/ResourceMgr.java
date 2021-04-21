@@ -9,17 +9,23 @@ import java.awt.image.BufferedImage;
  * @Date 2021/4/17 15:50
  **/
 public class ResourceMgr {
-    public static BufferedImage tankL, tankD, tankU, tankR;
+    public static BufferedImage goodTankL, goodTankD, goodTankU, goodTankR;
+    public static BufferedImage badTankL, badTankD, badTankU, badTankR;
     public static BufferedImage bulletL, bulletD, bulletU, bulletR;
     public static BufferedImage[] explodes = new BufferedImage[16];
 
     static {
         try {
             //坦克图片加载
-            tankU = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/tankU.gif"));
-            tankL = ImageUtil.rotateImage(tankU, -90);
-            tankR = ImageUtil.rotateImage(tankU, 90);
-            tankD = ImageUtil.rotateImage(tankU, 180);
+            goodTankU = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/GoodTank1.png"));
+            goodTankL = ImageUtil.rotateImage(goodTankU, -90);
+            goodTankR = ImageUtil.rotateImage(goodTankU, 90);
+            goodTankD = ImageUtil.rotateImage(goodTankU, 180);
+
+            badTankU = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/BadTank1.png"));
+            badTankL = ImageUtil.rotateImage(badTankU, -90);
+            badTankR = ImageUtil.rotateImage(badTankU, 90);
+            badTankD = ImageUtil.rotateImage(badTankU, 180);
             //子弹图片加载
             bulletU = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/bulletU.gif"));
             bulletL = ImageUtil.rotateImage(bulletU, -90);
