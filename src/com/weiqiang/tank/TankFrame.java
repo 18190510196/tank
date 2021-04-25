@@ -60,8 +60,8 @@ public class TankFrame extends Frame {
         g.drawString("爆炸的数量：" + tanks.size(), 10, 100);
         g.setColor(c);
         tank.paint(g);
-        for (int i = 0; i < bullets.size(); i++) {
 
+        for (int i = 0; i < bullets.size(); i++) {
             bullets.get(i).paint(g);
         }
         for (int i = 0; i < tanks.size(); i++) {

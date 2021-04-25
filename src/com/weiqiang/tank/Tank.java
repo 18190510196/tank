@@ -16,12 +16,14 @@ public class Tank {
 
     private boolean moving = true;//为false的时候坦克停止
     private boolean living = true;//存活状态
-    private TankFrame tf = null;
+    TankFrame tf = null;
     public static int WIDTH = ResourceMgr.goodTankU.getWidth();
     public static int HEIGHT = ResourceMgr.goodTankU.getHeight();
-    private Group group = Group.BAD;//坦克分类，默认是敌人坦克
+    Group group = Group.BAD;//坦克分类，默认是敌人坦克
 
     Random random = new Random();
+
+    FireStrategy fs;
 
     public Tank(int x, int y, Dir dir, Group group, TankFrame tf) {
         super();
@@ -34,7 +36,29 @@ public class Tank {
         rect.y = y;
         rect.height = HEIGHT;
         rect.width = WIDTH;
-
+        if (group == Group.GOOD) {
+            String goodName = (String) PropertyMgr.get("goodFS");
+            try {
+                fs = (FourFireStrategy) Class.forName(goodName).newInstance();
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        } else {
+            String badName = (String) PropertyMgr.get("badFS");
+            try {
+                fs = (DefaultFireStrategy) Class.forName(badName).newInstance();
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public int getX() {
@@ -149,10 +173,7 @@ public class Tank {
     }
 
     public void fire() {
-        int bX = this.x + Tank.WIDTH / 2 - Bullet.WIDTH / 2;
-        int bY = this.y + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;
-        tf.bullets.add(new Bullet(bX, bY, this.dir, this.group, this.tf));
-        if (this.group == Group.GOOD) new Thread(() -> new Audio("audio/tank_fire.wav").play()).run();
+        fs.fire(this);
     }
 
     public void die() {

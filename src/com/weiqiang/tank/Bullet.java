@@ -1,6 +1,7 @@
 package com.weiqiang.tank;
 
 import java.awt.*;
+import java.util.zip.DeflaterInputStream;
 
 /**
  * @Description 子弹对象
@@ -28,6 +29,7 @@ public class Bullet {
         rect.y = y;
         rect.width = WIDTH;
         rect.height = HEIGHT;
+        tf.bullets.add(this);
     }
 
     public void paint(Graphics g) {
