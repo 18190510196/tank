@@ -1,6 +1,6 @@
-package com.weiqiang.tank;
+package com.weiqiang.tank.factory;
 
-import com.weiqiang.tank.factory.BaseTank;
+import com.weiqiang.tank.*;
 
 import java.awt.*;
 import java.util.Random;
@@ -10,9 +10,10 @@ import java.util.Random;
  * @Author weiqiang
  * @Date 2021/4/12 22:56
  **/
-public class Tank extends BaseTank {
+public class RectTank extends BaseTank {
     public Rectangle rect = new Rectangle();
     private static final int SPEED = 6;//移动速度
+
     private boolean moving = true;//为false的时候坦克停止
     private boolean living = true;//存活状态
     public static int WIDTH = ResourceMgr.goodTankU.getWidth();
@@ -22,7 +23,7 @@ public class Tank extends BaseTank {
 
     FireStrategy fs;
 
-    public Tank(int x, int y, Dir dir, Group group, TankFrame tf) {
+    public RectTank(int x, int y, Dir dir, Group group, TankFrame tf) {
         super();
         this.dir = dir;
         this.x = x;
@@ -101,27 +102,15 @@ public class Tank extends BaseTank {
     public void setGroup(Group group) {
         this.group = group;
     }
-
+@Override
     public void paint(Graphics g) {
         if (!living) {
             tf.tanks.remove(this);
         }
-        switch (dir) {
-            case UP:
-                g.drawImage(this.group == Group.BAD ? ResourceMgr.badTankU : ResourceMgr.goodTankU, x, y, null);
-                break;
-            case DOWN:
-                g.drawImage(this.group == Group.BAD ? ResourceMgr.badTankD : ResourceMgr.goodTankD, x, y, null);
-                break;
-            case RIGHT:
-                g.drawImage(this.group == Group.BAD ? ResourceMgr.badTankR : ResourceMgr.goodTankR, x, y, null);
-                break;
-            case LEFT:
-                g.drawImage(this.group == Group.BAD ? ResourceMgr.badTankL : ResourceMgr.goodTankL, x, y, null);
-                break;
-            default:
-                break;
-        }
+        Color c=g.getColor();
+        g.setColor(Color.blue);
+        g.fillRect(x,y,50,50);
+        g.setColor(c);
         move();
 
     }
@@ -161,8 +150,8 @@ public class Tank extends BaseTank {
     private void boundsCheck() {
         if (this.x < 2) x = 2;
         if (this.y < 28) y = 28;
-        if (this.x > TankFrame.GAME_WIDTH - Tank.WIDTH - 2) x = TankFrame.GAME_WIDTH - Tank.WIDTH - 2;
-        if (this.y > TankFrame.GAME_HEIGHT - Tank.HEIGHT - 2) y = TankFrame.GAME_HEIGHT - Tank.HEIGHT - 2;
+        if (this.x > TankFrame.GAME_WIDTH - RectTank.WIDTH - 2) x = TankFrame.GAME_WIDTH - RectTank.WIDTH - 2;
+        if (this.y > TankFrame.GAME_HEIGHT - RectTank.HEIGHT - 2) y = TankFrame.GAME_HEIGHT - RectTank.HEIGHT - 2;
     }
 
     private void randomMove() {

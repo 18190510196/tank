@@ -1,17 +1,17 @@
-package com.weiqiang.tank;
+package com.weiqiang.tank.factory;
 
-import com.weiqiang.tank.factory.BaseExplode;
+import com.weiqiang.tank.Audio;
+import com.weiqiang.tank.ResourceMgr;
+import com.weiqiang.tank.TankFrame;
 
 import java.awt.*;
-
-import static sun.misc.PostVMInitHook.run;
 
 /**
  * @Description 爆炸对象
  * @Author weiqiang
  * @Date 2021/4/15 22:08
  **/
-public class Explode extends BaseExplode {
+public class RectExplode extends BaseExplode {
     private int x, y;
 
     public static int WIDTH = ResourceMgr.explodes[0].getWidth();
@@ -19,7 +19,7 @@ public class Explode extends BaseExplode {
     TankFrame tf = null;
     private int step = 0;
 
-    public Explode(int x, int y, TankFrame tf) {
+    public RectExplode(int x, int y, TankFrame tf) {
         this.x = x;
         this.y = y;
         this.tf = tf;
@@ -29,8 +29,13 @@ public class Explode extends BaseExplode {
 
     @Override
     public void paint(Graphics g) {
-        g.drawImage(ResourceMgr.explodes[step++], x, y, null);
-        if (step >= ResourceMgr.explodes.length)
+        Color c = g.getColor();
+        g.setColor(Color.red);
+//        g.drawImage(ResourceMgr.explodes[step++], x, y, null);
+        g.fillRect(x, y, 10 * step, 10 * step);
+        step++;
+        if (step >= 20)
             tf.explodes.remove(this);
+        g.setColor(c);
     }
 }

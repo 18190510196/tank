@@ -1,5 +1,7 @@
 package com.weiqiang.tank;
 
+import com.weiqiang.tank.factory.*;
+
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -14,11 +16,14 @@ import java.util.List;
  * @Date 2021/4/12 22:36
  **/
 public class TankFrame extends Frame {
-    static final int GAME_WIDTH = 800, GAME_HEIGHT = 600, SPEED = 10;
-    Tank tank = new Tank(200, 600, Dir.DOWN, Group.GOOD, this);
-    List<Bullet> bullets = new ArrayList<Bullet>();
+    public static final int GAME_WIDTH = 800;
+    public static final int GAME_HEIGHT = 600;
+    static final int SPEED = 10;
+    public List<BaseBullet> bullets = new ArrayList<>();
     public List<Tank> tanks = new ArrayList<Tank>();
-    List<Explode> explodes = new ArrayList<>();
+    public List<BaseExplode> explodes = new ArrayList<>();
+    public GameFactory gf = new RectFactory();
+    BaseTank tank = gf.createTank(200, 600, Dir.DOWN, Group.GOOD, this);
 
     public TankFrame() {
         setSize(GAME_WIDTH, GAME_HEIGHT);
