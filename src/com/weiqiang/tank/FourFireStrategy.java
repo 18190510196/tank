@@ -1,7 +1,5 @@
 package com.weiqiang.tank;
 
-import java.util.Arrays;
-
 /**
  * @Description 坦克四面开火模式
  * @Author weiqiang
@@ -14,7 +12,7 @@ public class FourFireStrategy implements FireStrategy {
         int bY = t.y + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;
         Dir[] dirs = Dir.values();
         for (Dir dir : dirs) {
-            new Bullet(bX, bY, dir, t.group, t.tf);
+            new Bullet(bX, bY, dir, t.group, t.gm);
         }
         if (t.group == Group.GOOD) new Thread(() -> new Audio("audio/tank_fire.wav").play()).run();
     }

@@ -16,7 +16,7 @@ public class Tank {
 
     private boolean moving = true;//为false的时候坦克停止
     private boolean living = true;//存活状态
-    TankFrame tf = null;
+    GameModel gm = null;
     public static int WIDTH = ResourceMgr.goodTankU.getWidth();
     public static int HEIGHT = ResourceMgr.goodTankU.getHeight();
     Group group = Group.BAD;//坦克分类，默认是敌人坦克
@@ -25,13 +25,13 @@ public class Tank {
 
     FireStrategy fs;
 
-    public Tank(int x, int y, Dir dir, Group group, TankFrame tf) {
+    public Tank(int x, int y, Dir dir, Group group, GameModel gm) {
         super();
         this.dir = dir;
         this.x = x;
         this.y = y;
         this.group = group;
-        this.tf = tf;
+        this.gm = gm;
         rect.x = x;
         rect.y = y;
         rect.height = HEIGHT;
@@ -107,7 +107,7 @@ public class Tank {
 
     public void paint(Graphics g) {
         if (!living) {
-            tf.tanks.remove(this);
+            gm.tanks.remove(this);
         }
         switch (dir) {
             case UP:
