@@ -108,7 +108,7 @@ public class RectTank extends BaseTank {
             tf.tanks.remove(this);
         }
         Color c=g.getColor();
-        g.setColor(Color.blue);
+        g.setColor(group==Group.BAD?Color.blue:Color.yellow);
         g.fillRect(x,y,50,50);
         g.setColor(c);
         move();

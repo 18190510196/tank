@@ -69,7 +69,7 @@ public class RectBullet extends BaseBullet {
     }
 
     //碰撞检测
-    public void collideWith(Tank tank) {
+    public void collideWith(BaseTank tank) {
         if (this.group == tank.getGroup()) return;
 
         if (rect.intersects(tank.rect)) {

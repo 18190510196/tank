@@ -1,6 +1,7 @@
 package com.weiqiang.tank;
 
 import com.weiqiang.tank.factory.BaseBullet;
+import com.weiqiang.tank.factory.BaseTank;
 
 import java.awt.*;
 import java.util.zip.DeflaterInputStream;
@@ -81,7 +82,7 @@ public class Bullet extends BaseBullet {
     }
 
     //碰撞检测
-    public void collideWith(Tank tank) {
+    public void collideWith(BaseTank tank) {
         if (this.group == tank.getGroup()) return;
 
         if (rect.intersects(tank.rect)) {

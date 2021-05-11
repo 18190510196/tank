@@ -20,9 +20,9 @@ public class TankFrame extends Frame {
     public static final int GAME_HEIGHT = 600;
     static final int SPEED = 10;
     public List<BaseBullet> bullets = new ArrayList<>();
-    public List<Tank> tanks = new ArrayList<Tank>();
+    public List<BaseTank> tanks = new ArrayList<>();
     public List<BaseExplode> explodes = new ArrayList<>();
-    public GameFactory gf = new RectFactory();
+    public GameFactory gf = new DefaultFactory();
     BaseTank tank = gf.createTank(200, 600, Dir.DOWN, Group.GOOD, this);
 
     public TankFrame() {

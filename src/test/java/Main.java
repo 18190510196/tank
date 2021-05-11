@@ -12,7 +12,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         TankFrame tf = new TankFrame();
         for (int i = 0; i < 5; i++) {
-            tf.tanks.add(new Tank(50 + i * 50, 200, Dir.DOWN, Group.BAD, tf));
+            tf.tanks.add(tf.gf.createTank(50 + i * 50, 200, Dir.DOWN, Group.BAD, tf));
 
         }
         while (true) {

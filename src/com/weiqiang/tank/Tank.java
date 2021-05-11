@@ -11,10 +11,10 @@ import java.util.Random;
  * @Date 2021/4/12 22:56
  **/
 public class Tank extends BaseTank {
-    public Rectangle rect = new Rectangle();
+
     private static final int SPEED = 6;//移动速度
     private boolean moving = true;//为false的时候坦克停止
-    private boolean living = true;//存活状态
+
     public static int WIDTH = ResourceMgr.goodTankU.getWidth();
     public static int HEIGHT = ResourceMgr.goodTankU.getHeight();
 
@@ -98,6 +98,11 @@ public class Tank extends BaseTank {
         return group;
     }
 
+    @Override
+    public void die() {
+        living=false;
+    }
+
     public void setGroup(Group group) {
         this.group = group;
     }
@@ -173,7 +178,5 @@ public class Tank extends BaseTank {
         fs.fire(this);
     }
 
-    public void die() {
-        living = false;
-    }
+
 }
