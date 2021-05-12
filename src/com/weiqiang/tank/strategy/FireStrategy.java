@@ -1,4 +1,6 @@
-package com.weiqiang.tank;
+package com.weiqiang.tank.strategy;
+
+import com.weiqiang.tank.Tank;
 
 /**
  * 坦克开火的策略模式设计

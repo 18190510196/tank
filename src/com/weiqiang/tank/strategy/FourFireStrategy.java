@@ -1,4 +1,6 @@
-package com.weiqiang.tank;
+package com.weiqiang.tank.strategy;
+
+import com.weiqiang.tank.*;
 
 /**
  * @Description 坦克四面开火模式

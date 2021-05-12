@@ -1,4 +1,9 @@
-package com.weiqiang.tank;
+package com.weiqiang.tank.strategy;
+
+import com.weiqiang.tank.Audio;
+import com.weiqiang.tank.Bullet;
+import com.weiqiang.tank.Group;
+import com.weiqiang.tank.Tank;
 
 /**
  * @Description 坦克默认开火模式

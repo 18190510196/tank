@@ -1,5 +1,9 @@
 package com.weiqiang.tank;
 
+import com.weiqiang.tank.strategy.DefaultFireStrategy;
+import com.weiqiang.tank.strategy.FireStrategy;
+import com.weiqiang.tank.strategy.FourFireStrategy;
+
 import java.awt.*;
 import java.util.Random;
 
@@ -8,18 +12,17 @@ import java.util.Random;
  * @Author weiqiang
  * @Date 2021/4/12 22:56
  **/
-public class Tank {
-    public int x, y;
+public class Tank extends GameObject {
     Rectangle rect = new Rectangle();
-    Dir dir = Dir.DOWN;//默认方向
+    public Dir dir = Dir.DOWN;//默认方向
     private static final int SPEED = 6;//移动速度
 
     private boolean moving = true;//为false的时候坦克停止
     private boolean living = true;//存活状态
-    GameModel gm = null;
+    public GameModel gm = null;
     public static int WIDTH = ResourceMgr.goodTankU.getWidth();
     public static int HEIGHT = ResourceMgr.goodTankU.getHeight();
-    Group group = Group.BAD;//坦克分类，默认是敌人坦克
+    public Group group = Group.BAD;//坦克分类，默认是敌人坦克
 
     Random random = new Random();
 
@@ -107,7 +110,7 @@ public class Tank {
 
     public void paint(Graphics g) {
         if (!living) {
-            gm.tanks.remove(this);
+            gm.remove(this);
         }
         switch (dir) {
             case UP:

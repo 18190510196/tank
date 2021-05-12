@@ -8,8 +8,7 @@ import java.util.zip.DeflaterInputStream;
  * @Author weiqiang
  * @Date 2021/4/15 22:08
  **/
-public class Bullet {
-    private int x, y;
+public class Bullet extends GameObject{
     private final int SPEED = 2;
     private Dir dir;
     Rectangle rect = new Rectangle();
@@ -29,12 +28,12 @@ public class Bullet {
         rect.y = y;
         rect.width = WIDTH;
         rect.height = HEIGHT;
-        gm.bullets.add(this);
+        gm.add(this);
     }
 
     public void paint(Graphics g) {
         if (!living) {
-            gm.bullets.remove(this);
+            gm.remove(this);
         }
         switch (dir) {
             case UP:
@@ -87,7 +86,7 @@ public class Bullet {
             //控制爆炸在坦克中心位置
             int eX = tank.getX() + Tank.WIDTH / 2 - Explode.WIDTH / 2;
             int eY = tank.getY() + Tank.HEIGHT / 2 - Explode.HEIGHT / 2;
-            gm.explodes.add(new Explode(eX, eY, gm));
+            gm.add(new Explode(eX, eY, gm));
         }
     }
 
