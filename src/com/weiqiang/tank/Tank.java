@@ -16,7 +16,6 @@ public class Tank extends GameObject {
     Rectangle rect = new Rectangle();
     public Dir dir = Dir.DOWN;//默认方向
     private static final int SPEED = 6;//移动速度
-
     private boolean moving = true;//为false的时候坦克停止
     private boolean living = true;//存活状态
     public GameModel gm = null;
@@ -27,6 +26,8 @@ public class Tank extends GameObject {
     Random random = new Random();
 
     FireStrategy fs;
+
+    public int oldX, oldY;//记录每次移动之后坦克现在的位置
 
     public Tank(int x, int y, Dir dir, Group group, GameModel gm) {
         super();
@@ -68,32 +69,12 @@ public class Tank extends GameObject {
         return x;
     }
 
-    public void setX(int x) {
-        this.x = x;
-    }
-
     public int getY() {
         return y;
     }
 
-    public void setY(int y) {
-        this.y = y;
-    }
-
     public void setDir(Dir dir) {
         this.dir = dir;
-    }
-
-    public Dir getDir() {
-        return dir;
-    }
-
-    public static int getSPEED() {
-        return SPEED;
-    }
-
-    public boolean isMoving() {
-        return moving;
     }
 
     public void setMoving(boolean moving) {
@@ -104,8 +85,8 @@ public class Tank extends GameObject {
         return group;
     }
 
-    public void setGroup(Group group) {
-        this.group = group;
+    public Rectangle getRect() {
+        return rect;
     }
 
     public void paint(Graphics g) {
@@ -129,11 +110,12 @@ public class Tank extends GameObject {
                 break;
         }
         move();
-
     }
 
     //判断坦克是否需要移动
     private void move() {
+        oldX = x;
+        oldY = y;
         if (!moving) return;
         switch (dir) {
             case DOWN:
@@ -181,5 +163,10 @@ public class Tank extends GameObject {
 
     public void die() {
         living = false;
+    }
+
+    public void collideWith() {
+       x=oldX;
+       y=oldY;
     }
 }
