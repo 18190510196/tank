@@ -13,7 +13,7 @@ import java.util.List;
  **/
 public class GameModel {
 
-    //
+    //单例模式
     public static final GameModel INSTATNCE = new GameModel();
 
     static {
