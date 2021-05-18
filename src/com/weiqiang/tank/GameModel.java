@@ -13,18 +13,33 @@ import java.util.List;
  **/
 public class GameModel {
 
-    Tank mainTank = new Tank(200, 600, Dir.DOWN, Group.GOOD, this);
+    //
+    public static final GameModel INSTATNCE = new GameModel();
+
+    static {
+        INSTATNCE.init();
+    }
+
+    Tank mainTank;
     List<GameObject> objects = new ArrayList<>();
     ColliderChain chain = new ColliderChain();
 
-    public GameModel() {
+    public static GameModel getInstance() {
+        return INSTATNCE;
+    }
+
+    private void init() {
+        mainTank = new Tank(200, 600, Dir.DOWN, Group.GOOD);
         for (int i = 0; i < 5; i++) {
-            add(new Tank(50 + i * 50, 200, Dir.DOWN, Group.BAD, this));
+            new Tank(50 + i * 50, 200, Dir.DOWN, Group.BAD);
         }
         add(new Wall(200, 100, 80, 100));
         add(new Wall(500, 400, 50, 100));
         add(new Wall(600, 100, 60, 90));
         add(new Wall(400, 300, 70, 80));
+    }
+
+    public GameModel() {
     }
 
     public void add(GameObject go) {

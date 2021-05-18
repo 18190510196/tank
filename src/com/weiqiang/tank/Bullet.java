@@ -14,26 +14,24 @@ public class Bullet extends GameObject{
     public Rectangle rect = new Rectangle();
     public static int WIDTH = ResourceMgr.bulletD.getWidth();
     public static int HEIGHT = ResourceMgr.bulletD.getHeight();
-    GameModel gm = null;
     private boolean living = true;//子弹状态
-    private Group group = Group.BAD;
+    public Group group = Group.BAD;
 
-    public Bullet(int x, int y, Dir dir, Group group, GameModel gm) {
+    public Bullet(int x, int y, Dir dir, Group group) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.group = group;
-        this.gm = gm;
         rect.x = x;
         rect.y = y;
         rect.width = WIDTH;
         rect.height = HEIGHT;
-        gm.add(this);
+        GameModel.getInstance().add(this);
     }
 
     public void paint(Graphics g) {
         if (!living) {
-            gm.remove(this);
+            GameModel.getInstance().remove(this);
         }
         switch (dir) {
             case UP:
@@ -76,21 +74,7 @@ public class Bullet extends GameObject{
         if (x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT) living = false;
     }
 
-    //碰撞检测
-    public boolean collideWith(Tank tank) {
-        if (this.group == tank.getGroup()) return true;
 
-        if (rect.intersects(tank.rect)) {
-            tank.die();
-            this.die();
-            //控制爆炸在坦克中心位置
-            int eX = tank.getX() + Tank.WIDTH / 2 - Explode.WIDTH / 2;
-            int eY = tank.getY() + Tank.HEIGHT / 2 - Explode.HEIGHT / 2;
-            gm.add(new Explode(eX, eY, gm));
-            return false;
-        }
-        return true;
-    }
 
     public void die() {
         living = false;

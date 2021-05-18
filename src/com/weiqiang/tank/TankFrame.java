@@ -12,7 +12,6 @@ import java.awt.event.WindowEvent;
  * @Date 2021/4/12 22:36
  **/
 public class TankFrame extends Frame {
-    GameModel gm=new GameModel();
     static final int GAME_WIDTH = 800, GAME_HEIGHT = 600, SPEED = 10;
 
     public TankFrame() {
@@ -48,7 +47,7 @@ public class TankFrame extends Frame {
 
     @Override
     public void paint(Graphics g) {
-        gm.paint(g);
+        GameModel.getInstance().paint(g);
 
     }
 
@@ -97,7 +96,7 @@ public class TankFrame extends Frame {
                     bl = false;
                     break;
                 case KeyEvent.VK_CONTROL:
-                    gm.getMainTank().fire();
+                    GameModel.getInstance().getMainTank().fire();
                     break;
                 default:
                     break;
@@ -106,7 +105,7 @@ public class TankFrame extends Frame {
         }
 
         private void setMainTankDir() {
-            Tank mainTank = gm.getMainTank();
+            Tank mainTank = GameModel.getInstance().getMainTank();
             if (!bu && !bl && !bd && !br) mainTank.setMoving(false);
             else {
                 mainTank.setMoving(true);
