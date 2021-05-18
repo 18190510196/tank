@@ -39,7 +39,7 @@ public class GameModel {
         add(new Wall(400, 300, 70, 80));
     }
 
-    public GameModel() {
+    private GameModel() {
     }
 
     public void add(GameObject go) {
