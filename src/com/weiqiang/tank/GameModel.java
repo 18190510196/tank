@@ -1,32 +1,30 @@
 package com.weiqiang.tank;
 
-import com.weiqiang.tank.cor.BulletTankCollider;
-import com.weiqiang.tank.cor.Collider;
-import com.weiqiang.tank.cor.TankTankCollider;
+import com.weiqiang.tank.collider.ColliderChain;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @Description 设计模式——门面模式（facade）
+ * @Description
  * @Author weiqiang
  * @Date 2021/5/11 22:51
  **/
 public class GameModel {
 
     Tank mainTank = new Tank(200, 600, Dir.DOWN, Group.GOOD, this);
-    //    List<Bullet> bullets = new ArrayList<Bullet>();
-//    public List<Tank> tanks = new ArrayList<Tank>();
-//    List<Explode> explodes = new ArrayList<>();
     List<GameObject> objects = new ArrayList<>();
-    BulletTankCollider cor = new BulletTankCollider();
-    TankTankCollider ttc = new TankTankCollider();
+    ColliderChain chain = new ColliderChain();
 
     public GameModel() {
         for (int i = 0; i < 5; i++) {
             add(new Tank(50 + i * 50, 200, Dir.DOWN, Group.BAD, this));
         }
+        add(new Wall(200, 100, 80, 100));
+        add(new Wall(500, 400, 50, 100));
+        add(new Wall(600, 100, 60, 90));
+        add(new Wall(400, 300, 70, 80));
     }
 
     public void add(GameObject go) {
@@ -51,8 +49,7 @@ public class GameModel {
             for (int j = i + 1; j < objects.size(); j++) {
                 GameObject o1 = objects.get(i);
                 GameObject o2 = objects.get(j);
-                cor.collide(o1, o2);
-                ttc.collide(o1, o2);
+                chain.collide(o1, o2);
             }
         }
     }

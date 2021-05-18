@@ -1,0 +1,2 @@
+goodFS=com.weiqiang.tank.strategy.FourFireStrategy
+badFS=com.weiqiang.tank.strategy.DefaultFireStrategy

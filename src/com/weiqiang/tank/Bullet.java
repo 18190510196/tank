@@ -11,7 +11,7 @@ import java.util.zip.DeflaterInputStream;
 public class Bullet extends GameObject{
     private final int SPEED = 2;
     private Dir dir;
-    Rectangle rect = new Rectangle();
+    public Rectangle rect = new Rectangle();
     public static int WIDTH = ResourceMgr.bulletD.getWidth();
     public static int HEIGHT = ResourceMgr.bulletD.getHeight();
     GameModel gm = null;
@@ -77,8 +77,8 @@ public class Bullet extends GameObject{
     }
 
     //碰撞检测
-    public void collideWith(Tank tank) {
-        if (this.group == tank.getGroup()) return;
+    public boolean collideWith(Tank tank) {
+        if (this.group == tank.getGroup()) return true;
 
         if (rect.intersects(tank.rect)) {
             tank.die();
@@ -87,10 +87,12 @@ public class Bullet extends GameObject{
             int eX = tank.getX() + Tank.WIDTH / 2 - Explode.WIDTH / 2;
             int eY = tank.getY() + Tank.HEIGHT / 2 - Explode.HEIGHT / 2;
             gm.add(new Explode(eX, eY, gm));
+            return false;
         }
+        return true;
     }
 
-    private void die() {
+    public void die() {
         living = false;
     }
 }

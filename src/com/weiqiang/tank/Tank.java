@@ -13,7 +13,7 @@ import java.util.Random;
  * @Date 2021/4/12 22:56
  **/
 public class Tank extends GameObject {
-    Rectangle rect = new Rectangle();
+    public Rectangle rect = new Rectangle();
     public Dir dir = Dir.DOWN;//默认方向
     private static final int SPEED = 6;//移动速度
     private boolean moving = true;//为false的时候坦克停止
@@ -165,7 +165,7 @@ public class Tank extends GameObject {
         living = false;
     }
 
-    public void collideWith() {
+    public void back() {
        x=oldX;
        y=oldY;
     }

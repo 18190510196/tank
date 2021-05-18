@@ -1,4 +1,4 @@
-package com.weiqiang.tank.cor;
+package com.weiqiang.tank.collider;
 
 import com.weiqiang.tank.GameObject;
 
@@ -8,5 +8,5 @@ import com.weiqiang.tank.GameObject;
  * @Date 2021/5/13 21:32
  **/
 public interface Collider {
-    public void collide(GameObject o1, GameObject o2);
+    boolean collide(GameObject o1, GameObject o2);
 }
