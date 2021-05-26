@@ -111,6 +111,16 @@ public class Tank extends GameObject {
         move();
     }
 
+    @Override
+    public int getWidth() {
+        return WIDTH;
+    }
+
+    @Override
+    public int getHeight() {
+        return HEIGHT;
+    }
+
     //判断坦克是否需要移动
     private void move() {
         oldX = x;

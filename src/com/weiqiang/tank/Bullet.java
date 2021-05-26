@@ -8,7 +8,7 @@ import java.util.zip.DeflaterInputStream;
  * @Author weiqiang
  * @Date 2021/4/15 22:08
  **/
-public class Bullet extends GameObject{
+public class Bullet extends GameObject {
     private final int SPEED = 2;
     private Dir dir;
     public Rectangle rect = new Rectangle();
@@ -52,6 +52,16 @@ public class Bullet extends GameObject{
         move();
     }
 
+    @Override
+    public int getWidth() {
+        return WIDTH;
+    }
+
+    @Override
+    public int getHeight() {
+        return HEIGHT;
+    }
+
     private void move() {
         switch (dir) {
             case UP:
@@ -73,7 +83,6 @@ public class Bullet extends GameObject{
         rect.y = this.y;
         if (x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT) living = false;
     }
-
 
 
     public void die() {
