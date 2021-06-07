@@ -1,6 +1,7 @@
 package com.weiqiang.tank.strategy;
 
 import com.weiqiang.tank.*;
+import com.weiqiang.tank.decorator.RectDecorator;
 
 /**
  * @Description 坦克四面开火模式
@@ -14,7 +15,8 @@ public class FourFireStrategy implements FireStrategy {
         int bY = t.y + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;
         Dir[] dirs = Dir.values();
         for (Dir dir : dirs) {
-            new Bullet(bX, bY, dir, t.group);
+//            GameModel.getInstance().add(new RectDecorator(new Bullet(bX, bY, dir, t.group)));
+        new Bullet(bX,bY,dir,t.group);
         }
         if (t.group == Group.GOOD) new Thread(() -> new Audio("audio/tank_fire.wav").play()).run();
     }

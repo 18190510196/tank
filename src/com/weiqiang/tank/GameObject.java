@@ -8,7 +8,7 @@ import java.awt.*;
  * @Date 2021/5/12 23:17
  **/
 public abstract class GameObject {
-    public int x,y,width,height;
+    public int x,y;
 
     public abstract void paint(Graphics g);
 

@@ -21,7 +21,7 @@ public class RectDecorator extends GODecorator {
         go.paint(g);
         Color c = g.getColor();
         g.setColor(Color.LIGHT_GRAY);
-        g.drawRect(super.go.x, super.go.y, super.go.getWidth(), super.go.getHeight());
+        g.drawRect(go.x, go.y+16, go.getWidth(),go.getHeight());
         g.setColor(c);
     }
 
